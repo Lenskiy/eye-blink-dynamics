@@ -1,4 +1,4 @@
-function plotBlinkMeanPerSubject(session_ibi_stat, good_ind, session_ibi_len)
+function plotBlinkRMSSDPerSubject(session_ibi_stat, good_ind, session_ibi_len)
     colors = get(gca,'colororder');close;
     colors = [colors; colors; colors; colors];
 	markers = {'+','o','*','.','x'};
@@ -10,16 +10,16 @@ function plotBlinkMeanPerSubject(session_ibi_stat, good_ind, session_ibi_len)
     pair{4} = [2 5]; % IQ and memory testing 
     pair{5} = [1 3 2]; % resting 1 and 2 and IQ test
     pair{6} = [1 3 4]; % resting 1 and 2 and Reading
-	pair{7} = [1 2 3 4 5];   
-    [s ind] = sort(session_ibi_len(2, good_ind(:))); %sort based on the number of blinks in reading 
+    pair{7} = [1 2 3 4 5];
+    [s ind] = sort(session_ibi_len(4, good_ind(:))); %sort based on the number of blinks in resting 1
     for j = 1:size(pair,2)
         figure('Position', [100, 100, 540, 257]), hold on; 
         %title('Average IBI vs task');
-        xlabel('Subject number'); ylabel('Average inter-blink interval');
+        xlabel('Subject number'); ylabel('\sigma(IBI)');
         for k = 1:size(pair{j}(:),1)
-            %[s ind] = sort(session_ibi_stat(good_ind(:), 1, pair{j}(k)));
+            %[s ind] = sort(session_ibi_stat(good_ind(:), 2, pair{j}(k)));
             %session_ibi_stat(good_ind(ind(:,1)), 1, pair{j}(k))
-            plot(1:length(good_ind), session_ibi_stat(good_ind(ind), 1, pair{j}(k)),'LineStyle',':','Marker', markers{pair{j}(k)}, 'LineWidth', 2, 'MarkerSize',5, 'color', colors(pair{j}(k),:));
+            plot(1:length(good_ind), session_ibi_stat(good_ind(ind), 3, pair{j}(k)),'LineStyle',':','Marker', markers{pair{j}(k)}, 'LineWidth', 2, 'MarkerSize',5, 'color', colors(pair{j}(k),:));
             %errorbar(1:length(good_ind), session_ibi_stat(good_ind, 1, k),session_ibi_stat(good_ind, 2, k),'LineStyle',':','Marker',markers{k}, 'LineWidth', 2, 'MarkerSize',5);
             ghandler = gca;
             ghandler.XTick = 1:length(ind);
