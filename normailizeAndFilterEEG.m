@@ -12,13 +12,24 @@ function filtered_signal = normailizeAndFilterEEG(signal, lpcf, hpcf, samplingra
 %     filtered_signal = filtfilt(b,1,signal);
 %     b = fir1(128,lpcf,'high');
 %     filtered_signal = filtfilt(b,1,filtered_signal);
+
+	if (skewness(signal) > 3)
+        std6 = 6 * std(signal);
+        signal(1, find(signal > std6)) = std6; 
+	end
     
-    bpFilt = designfilt('bandpassfir','FilterOrder',lpcf * samplingrate / 2, ...
-         'CutoffFrequency1',5,'CutoffFrequency2',hpcf * samplingrate / 2, ...
+    bpFilt = designfilt('bandpassfir','FilterOrder',50, ...
+         'CutoffFrequency1',round(lpcf * samplingrate / 2),'CutoffFrequency2', round(hpcf * samplingrate / 2), ...
          'SampleRate',samplingrate);
+
+     
+%         bpFilt = designfilt('bandpassfir','FilterOrder',50, ...
+%          'CutoffFrequency1',3,'CutoffFrequency2', 10, ...
+%          'SampleRate',samplingrate); 
     filtered_signal = filter(bpFilt,signal);
-    %figure, hold on; plot(signal), plot(filtered_signal)
+%     figure, hold on; plot(signal), plot(filtered_signal)
     
+
  	filtered_signal = (filtered_signal - mean(filtered_signal))/std(filtered_signal);
     num_bins = 500;
     mn = min(filtered_signal);
