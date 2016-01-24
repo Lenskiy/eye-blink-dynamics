@@ -89,6 +89,12 @@ switch lower(G)
     g = inline('x.^3'); 
 
     gg = inline('3*x.^2');
+   
+  case 'kurt2'
+
+    g = inline('x.^4'); 
+
+    gg = inline('4*x.^3');
 
   case 'cosh'
 
