@@ -2,7 +2,7 @@
 %[session_raw_fp1, session_raw_fp2 labels] = readSplitFrontElectrodes2(path);
 %[session_raw_fp1_fp3, session_raw_fp2_fp4] = clear_manually(session_raw_fp1_fp3, session_raw_fp2_fp4);
 load('./PLOSData/EEG-DATA-TXT/PLOSsession_raw.mat');
-
+% 
 good_ind = 1:10;
 
 %%
@@ -18,7 +18,15 @@ sampling_rate = 250;
 % bad_ind_s1 = [19 18 7 6 4 1];
 % bad_ind_s2 = [19 12 9 8 4];
 %% Preprocess EEG by removing low and high frequencies and apply ICA
-% for k = 1:size(session_raw,2)
+% for k = 1:size(session_raw,2)%
+colors = get(gca,'colororder');close;
+colors = [colors; colors; colors; colors];
+sampling_rate = 250;
+% k = 1;
+% for i = 1:length(good_ind)
+%     figure, 
+%     subplot(2,1,1), hist(session_raw_fp1{k}(i,:));
+%     subplot(2,1,2), plot(session_raw_fp1{k}(
 %     for i = 1:size(session_raw{1}, 1)
 %         i
 %         session{k}(i, :) = amplify_blinks(session_raw{k}(i,:), session_raw{k}(i,:), sampling_rate);

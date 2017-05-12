@@ -10,7 +10,8 @@ function plotBlinkRMSSDPerSubject(session_ibi_stat, good_ind, session_ibi_len)
     pair{4} = [2 5]; % IQ and memory testing 
     pair{5} = [1 3 2]; % resting 1 and 2 and IQ test
     pair{6} = [1 3 4]; % resting 1 and 2 and Reading
-    pair{7} = [1 2 3 4 5];
+    pair{7} = [1 3 5]; % resting 1 and 2 and Memory
+	pair{8} = [1 2 3 4 5];  
     [s ind] = sort(session_ibi_len(4, good_ind(:))); %sort based on the number of blinks in resting 1
     for j = 1:size(pair,2)
         figure('Position', [100, 100, 540, 257]), hold on; 
